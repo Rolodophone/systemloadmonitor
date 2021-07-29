@@ -8,7 +8,6 @@ def updateSystemLoadFile():
 	print("Updating systemload.json.")
 
 	cpu_core_percents = psutil.cpu_percent(interval=None, percpu=True)  # CPU percent since last call
-	cpu_total_percent = 0.0
 
 	memory = psutil.virtual_memory()
 
