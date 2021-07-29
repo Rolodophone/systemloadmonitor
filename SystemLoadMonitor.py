@@ -2,10 +2,15 @@ from http.server import SimpleHTTPRequestHandler, HTTPServer
 from byte_converter import bytes2human
 import psutil
 import json
+import threading
+import time
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 
 def updateSystemLoadFile():
-	print("Updating systemload.json.")
+	logging.debug("Updating systemload.json.")
 
 	cpu_core_percents = psutil.cpu_percent(interval=None, percpu=True)  # CPU percent since last call
 
@@ -19,17 +24,19 @@ def updateSystemLoadFile():
 			'memory_percent': memory.percent
 		}, file, indent=None, separators=(',', ':'))
 
-	print("systemload.json updated.")
+	logging.debug("systemload.json updated.")
 
 
-class SystemLoadMonitorHandler(SimpleHTTPRequestHandler):
-	def do_GET(self):
-		print("GET request received")
-		if self.path == "/systemload.json":
-			updateSystemLoadFile()
-
-		return super().do_GET()
+def checkLoadThreadFun():
+	while True:
+		updateSystemLoadFile()
+		time.sleep(0.2)
 
 
-httpd = HTTPServer(('', 8000), SystemLoadMonitorHandler)
+logging.info("Starting check load thread.")
+check_load_thread = threading.Thread(target=checkLoadThreadFun)
+check_load_thread.start()
+
+logging.info("Starting server.")
+httpd = HTTPServer(('', 8000), SimpleHTTPRequestHandler)
 httpd.serve_forever()
