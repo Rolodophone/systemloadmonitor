@@ -3,17 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <title>System Load Monitor</title>
-  <script src="SystemLoadMonitor.js"></script>
 </head>
 
 <body>
   <h1>System Load Monitor</h1>
   
   <h2>CPU</h2>
-    <p>Core 1: <strong>0%</strong></p>
-  <p>Total: <strong>0%</strong></p>
+  <div id="cpu_core_percents"></div>
+  <p>Total: <strong><span id="cpu_total_percent">0</span>%</strong></p>
 
   <h2>Memory</h2>
-  <p>Used <strong>0 GiB</strong> out of <strong>0 GiB</strong> (<strong>0%</strong>)</p>
+  <p>Used <strong id="memory_used">0 GiB</strong> out of <strong id="memory_total">0 GiB</strong> (<strong><span id="memory_percent">0
+</span>%</strong>)</p>
+
+  <hr/>
+
+  <h2>Preferences</h2>
+  <label for="refresh_rate">Refresh rate:</label>
+  <input id="refresh_rate" type="number" name="refresh rate" min="0.2" max="600" style="width: 40px" step="0.2" value="1">
+  <span>second(s)</span>
+
 </body>
+<script src="SystemLoadMonitor.js"></script>
 </html>
