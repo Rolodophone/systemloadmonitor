@@ -19,9 +19,6 @@ function handleResponse() {
         }
     }
 
-    const cpu_total_percent = document.getElementById("cpu_total_percent")
-    cpu_total_percent.innerHTML = load.cpu_total_percent.toFixed(1)
-
     const memory_used = document.getElementById("memory_used")
     memory_used.innerHTML = load.memory_used
 

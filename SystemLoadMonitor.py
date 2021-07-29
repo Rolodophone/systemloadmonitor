@@ -7,7 +7,7 @@ import json
 def updateSystemLoadFile():
 	print("Updating systemload.json.")
 
-	cpu_core_percents = psutil.cpu_percent(interval=None, percpu=True)
+	cpu_core_percents = psutil.cpu_percent(interval=None, percpu=True)  # CPU percent since last call
 	cpu_total_percent = 0.0
 
 	memory = psutil.virtual_memory()
@@ -15,8 +15,7 @@ def updateSystemLoadFile():
 	with open("systemload.json", "w") as file:
 		json.dump({
 			'cpu_core_percents': cpu_core_percents,
-			'cpu_total_percent': cpu_total_percent,
-			'memory_used': bytes2human(memory.used),
+			'memory_used': bytes2human(memory.total - memory.available),
 			'memory_total': bytes2human(memory.total),
 			'memory_percent': memory.percent
 		}, file, indent=None, separators=(',', ':'))
@@ -26,7 +25,7 @@ def updateSystemLoadFile():
 
 class SystemLoadMonitorHandler(SimpleHTTPRequestHandler):
 	def do_GET(self):
-		print("GET request recieved")
+		print("GET request received")
 		if self.path == "/systemload.json":
 			updateSystemLoadFile()
 
