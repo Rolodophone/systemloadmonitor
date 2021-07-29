@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>System Load Monitor</title>
+  <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
@@ -15,12 +16,15 @@
   <p>Used <strong id="memory_used">0 GiB</strong> out of <strong id="memory_total">0 GiB</strong> (<strong><span id="memory_percent">0
 </span>%</strong>)</p>
 
-  <hr/>
-
   <h2>Preferences</h2>
   <label for="refresh_rate">Refresh rate:</label>
   <input id="refresh_rate" type="number" name="refresh rate" min="0.2" max="600" style="width: 40px" step="0.2" value="1">
   <span>second(s)</span>
+
+  <h2>About</h2>
+  <p>System load monitoring application. Written by Sergi Lange-Soler.</p>
+  <p>GiB means gibibytes. One GiB is 2<sup>30</sup> bytes. See
+    <a href="https://en.wikipedia.org/wiki/Byte#Multiple-byte_units">byte units</a>.</p>
 
 </body>
 <script src="SystemLoadMonitor.js"></script>
